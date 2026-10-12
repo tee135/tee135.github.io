@@ -9,7 +9,7 @@
 <body>
   <header><h1>Products</h1></header>
   <nav><a href="../">Top</a></nav>
-  <main><div id="games" class="grid"></div></main>
+  <main><ul id="games"></ul></main>
   <footer><small>&copy; 2026 tee135</small></footer>
   <script>
     fetch('games.json')
@@ -17,25 +17,12 @@
       .then(games => {
         const root = document.getElementById('games');
         for (const g of games) {
+          const li = document.createElement('li');
           const a = document.createElement('a');
-          a.className = 'card';
           a.href = `games/${g.name}/`;
-          const thumb = document.createElement('div');
-          thumb.className = 'thumb';
-          if (g.thumbnail) {
-            const img = document.createElement('img');
-            img.src = g.thumbnail; img.alt = '';
-            thumb.appendChild(img);
-          } else {
-            thumb.textContent = 'GAME';
-          }
-          const body = document.createElement('div');
-          body.className = 'body';
-          const h = document.createElement('h2'); h.textContent = g.title;
-          const p = document.createElement('p'); p.textContent = g.description || '';
-          body.append(h, p);
-          a.append(thumb, body);
-          root.appendChild(a);
+          a.textContent = g.title;
+          li.appendChild(a);
+          root.appendChild(li);
         }
       })
       .catch(() => { document.getElementById('games').textContent = 'ゲーム一覧を読み込めませんでした。'; });
