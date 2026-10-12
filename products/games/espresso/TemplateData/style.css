@@ -1,0 +1,104 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/*
+ * Espresso は 720x1080（9:16）の縦長固定レイアウト。
+ * ブラウザウィンドウが横長・縦長どちらでも、比率を保ったまま
+ * 画面内に収まる最大サイズを CSS の min() だけで計算する
+ * （レターボックス表示。JS によるリサイズ処理は行わない）。
+ */
+#unity-container {
+  position: relative;
+  width: min(100vw, 100dvh * 720 / 1080);
+  height: min(100dvh, 100vw * 1080 / 720);
+}
+
+#unity-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #231F20;
+}
+
+#unity-loading-bar {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+
+#unity-logo {
+  width: 154px;
+  height: 130px;
+  background: url('unity-logo-dark.png') no-repeat center;
+}
+
+#unity-progress-bar-empty {
+  width: 141px;
+  height: 18px;
+  margin-top: 10px;
+  margin-left: 6.5px;
+  background: url('progress-bar-empty-dark.png') no-repeat center;
+}
+
+#unity-progress-bar-full {
+  width: 0%;
+  height: 18px;
+  margin-top: 10px;
+  background: url('progress-bar-full-dark.png') no-repeat center;
+}
+
+#unity-warning {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%);
+  background: white;
+  padding: 10px;
+  display: none;
+  z-index: 10;
+}
+
+/* フッターはゲーム画面の上に重ねる小さなオーバーレイとして表示し、
+   720x1080 のレターボックス比率には影響させない */
+#unity-footer {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 5;
+}
+
+#unity-fullscreen-button {
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  background: url('fullscreen-button.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.7;
+}
+
+#unity-fullscreen-button:hover {
+  opacity: 1;
+}
+
+#diagnostics-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
